@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Titan3js</title>
+    <base href="/">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&family=Playfair+Display+SC&family=Six+Caps&display=swap" rel="stylesheet">    <link rel="stylesheet"  href="./css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+
+<script   src="./hover.js"></script>
+</head>
+<body>
+<div class="waterbg"></div>
+<div class="container"></div>
+<div class="title">
+    <div class="title-1">Don't practice until you get it right.</div>
+    <div class="title-2">Practice until you can't get it wrong.</div>
+    <div class="title-3" style="font-family: 'Noto Sans', serif">-Titanツ.猎头者</div>
+
+    <p><span class="p1">Dev by day</span><span class="p2">,</span> <span class="p3">Gamer by night.</span> </p>
+
+</div>
+<div class="img"></div>
+<div class="cursor"></div>
+
+
+<script>
+     console.log('working')
+
+const animation = new hoverEffect({
+parent: document.querySelector('.img'),
+intensity: 0.8,
+image1: './images/4.jpg',
+image2: './images/3.jpg',
+speedIn: 2,
+speedOut: 4.5,
+displacementImage: 'images/displacement7.jpg'
+});
+
+
+let title = document.querySelector('.container');
+let img = document.querySelector('.img');
+let cursorCircle = document.querySelector('.cursor');
+
+let textWrapper1 = document.querySelector('.title-1');
+textWrapper1.innerHTML = textWrapper1.textContent.replace(/\S/g, "<span class = 'letter1'>$&</span>");
+
+let textWrapper2 = document.querySelector('.title-2');
+textWrapper2.innerHTML = textWrapper2.textContent.replace(/\S/g, "<span class = 'letter'>$&</span>");
+
+let textWrapper3 = document.querySelector('.title-3');
+textWrapper3.innerHTML = textWrapper3.textContent.replace(/\S/g, "<span class = 'letter'>$&</span>");
+
+let tl = gsap.timeline();
+tl.to('.title-1 .letter1', {opacity: 1, y: '0',clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',stagger: '.03'})
+tl.to('.title-2 .letter', {opacity: 1, y: '0', clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',stagger: '.03'}, "-=.2")
+tl.to('.title-3 .letter', {opacity: 1, y: '0', clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',stagger: '.2'}, "-=.2")
+tl.from('p .p1', {opacity: 0, x: '-50px'}, "-=.2");
+tl.from('p .p2', {opacity: 0, y: '50px'}, "-=.2");
+tl.from('p .p3', {opacity: 0, x: '-50px'}, "-=.02")
+
+tl.to('.img', {clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', ease: Back.easeOut.config(11.7),x:-60, y:50, duration: 1.75}, "-=.5")
+
+let cursor = {
+    x:0,
+    y:0
+}
+const cursorAnimation = () => {
+    cursorCircle.style.cursor = 'none'
+}
+
+document.addEventListener('mousemove', (e) => {
+            cursor.x = -e.clientX * .14;
+            cursor.y = -e.clientY * .06;
+
+            img.style.transform = `translate(${cursor.x}px, ${cursor.y}px)`;
+            cursorCircle.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
+        })
+</script>
+
+
+</body>
+</html>
